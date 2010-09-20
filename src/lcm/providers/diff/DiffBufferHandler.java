@@ -118,6 +118,8 @@ public class DiffBufferHandler extends BufferAdapter implements BufferHandler
 	{
 		Integer line = Integer.valueOf(startLine);
 		String prev = changedLines.get(line);
+		if ((! buffer.isLoaded()) || (buffer.getLineCount() <= startLine))
+			return;
 		String current = buffer.getLineText(startLine);
 		if (prev == null)
 		{
