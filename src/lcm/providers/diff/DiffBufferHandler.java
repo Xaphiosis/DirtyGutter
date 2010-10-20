@@ -131,12 +131,15 @@ public class DiffBufferHandler extends BufferAdapter implements BufferHandler
 			if (movedLine != null)
 				origLine = movedLine.getValue().intValue() +
 					(startLine - movedLine.getKey().intValue());
-			prev = fileLines[origLine];
-			changedLines.put(line, prev);
+			if (origLine < fileLines.length)
+			{
+				prev = fileLines[origLine];
+				changedLines.put(line, prev);
+			}
 		}
-		ChangeType c = (! prev.equals(current)) ? ChangeType.CHANGED :
-			ChangeType.NONE; 
-		Range range = new Range(startLine, 1, c);
+		if (prev != null)
+			change = (! prev.equals(current)) ? ChangeType.CHANGED : ChangeType.NONE;
+		Range range = new Range(startLine, 1, change);
 		ranges.put(range, range);
 	}
 
