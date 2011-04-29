@@ -32,3 +32,6 @@ plugin.lcm.LCMPlugin.docs=index.html
 # misc
 #updater.downloadPage=http://jedit.org/index.php?page=download
 
+# set default provider to DIFF mode because the "simple" mode is still
+# experimental
+options.LCMPlugin.provider=Diff
