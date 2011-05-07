@@ -1,0 +1,18 @@
+commit e6d5fecf3cac5856f0d0bebf6640ffc5b68b2045
+Author: Shlomy Reinstein <sreinst1@gmail.com>
+Date:   Wed Oct 20 17:19:37 2010 +0200
+
+    A small fix to the Diff mode
+
+commit e2fea298517101fdd5ad8c094bf6d341f5415a47
+Author: unknown <Shlomy@.(none)>
+Date:   Mon Sep 20 04:37:07 2010 +0200
+
+    Fixed bug #3071356 - NPE from DirtyGutter.
+    The NPE is caused by the fact that buffer listeners are called before the buffer is loaded, and trying to get the buffer's text at this stage causes an NPE because the buffer has a line count of 1 but its text is null (not an empty string).
+
+commit 4f56f83e4ee556c8431c38934798269aa8b00831
+Author: unknown <Shlomy@.(none)>
+Date:   Fri Sep 10 17:33:40 2010 +0200
+
+    Initial import to git
