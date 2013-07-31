@@ -21,6 +21,7 @@
 package lcm;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -289,7 +290,7 @@ public class LCMPlugin extends EditPlugin
 		{
 			try
 			{
-				IOUtilities.closeQuietly(reader);
+				IOUtilities.closeQuietly((Closeable)reader);
 				vfs._endVFSSession(session, jEdit.getActiveView());
 			}
 			catch (IOException e)
