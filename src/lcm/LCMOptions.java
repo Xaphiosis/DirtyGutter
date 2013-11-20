@@ -63,8 +63,7 @@ public class LCMOptions extends AbstractOptionPane
 				break;
 			}
 		}
-		addComponent(jEdit.getProperty("messages.LCMPlugin.providers"),
-			provider);
+		addComponent(jEdit.getProperty("messages.LCMPlugin.providers"),	provider);
 		providerOptions = new DirtyLineProviderOptions[services.length];
 		providerPanels = new JPanel[services.length];
 		providerChanged();
