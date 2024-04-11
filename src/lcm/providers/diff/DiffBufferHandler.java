@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.Map.Entry;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import jdiff.util.Diff;
 import jdiff.util.Diff.Change;
@@ -33,10 +36,13 @@ import lcm.LCMPlugin;
 import lcm.painters.ColoredRectWithStripsPainter;
 import lcm.painters.DirtyMarkPainter;
 import lcm.providers.diff.Range.ChangeType;
+import lcm.XSymbolSubst;
 
 import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.buffer.BufferAdapter;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
+
+import org.gjt.sp.util.Log;
 
 public class DiffBufferHandler extends BufferAdapter implements BufferHandler
 {
@@ -90,9 +96,25 @@ public class DiffBufferHandler extends BufferAdapter implements BufferHandler
 		String [] bufferLines = new String[nBuffer];
 		for (int i = 0; i < nBuffer; i++)
 			bufferLines[i] = buffer.getLineText(i);
-		String [] fileLines = LCMPlugin.getInstance().readFile(buffer.getPath());
-		if (fileLines == null)
-			return;
+
+		String[] fileLines = null;
+
+		String encoding = buffer.getStringProperty(buffer.ENCODING);
+		if (encoding.equals("UTF-8-Isabelle")) {
+			// if we are diffing an Isabelle theory file, convert xsymbols
+			// since they are already converted in the buffer
+			try {
+				String text = new String(Files.readAllBytes(Paths.get(buffer.getPath())));
+				fileLines = XSymbolSubst.xsymbolToUnicodeLines(text);
+			} catch (IOException e) {
+				return;
+			}
+		} else {
+			fileLines = LCMPlugin.getInstance().readFile(buffer.getPath());
+			if (fileLines == null)
+				return;
+		}
+
 		Diff diff = new Diff(fileLines, bufferLines);
 		Change edit = diff.diff_2();
 		for (; edit != null; edit = edit.next)
