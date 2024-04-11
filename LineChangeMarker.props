@@ -3,7 +3,7 @@ plugin.lcm.LCMPlugin.activate=startup
 # general plugin information
 plugin.lcm.LCMPlugin.name=DirtyGutter
 plugin.lcm.LCMPlugin.author=Shlomy Reinstein
-plugin.lcm.LCMPlugin.version=0.3b
+plugin.lcm.LCMPlugin.version=0.4-xsymbol
 plugin.lcm.LCMPlugin.description=Marks changed lines (since last save) in gutter.
 
 plugin.lcm.LCMPlugin.depend.0=jdk 1.6
